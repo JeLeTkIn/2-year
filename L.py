@@ -51,6 +51,25 @@ conn.commit()
 c.execute('SELECT * FROM users')
 print(c.fetchall())
 
+c.execute('SELECT * FROM users WHERE age > 20')
+print(c.fetchall())
+
+c.execute('''ALTER TABLE users
+          ADD COLUMN email TEXT''')
+
+conn.commit()
+
+c.execute('''
+    UPDATE users 
+    SET grade = ?
+    WHERE age > 20
+''',(4.0,))
+
+conn.commit()
+
+c.execute('SELECT * FROM users')
+print(c.fetchall())
+
 if conn:
     conn.close()
     print("Соединение закрыто")
